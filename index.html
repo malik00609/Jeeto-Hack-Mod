@@ -72,19 +72,24 @@ h1 {
 <div class="footer">Application powered by Predictor Aviator</div>
 
   </div>  <script>
+    function getRandomMultiplier() {
+      // Generate a realistic multiplier between 1.50x and under 25.0x
+      return (Math.random() * (23.5 - 1.5) + 1.5).toFixed(2);
+    }
+
     function startPrediction() {
       const multiplierEl = document.getElementById("multiplier");
-      let multiplier = 0;
-      multiplierEl.textContent = "0.00x";
+      let startTime = Date.now();
 
       const interval = setInterval(() => {
-        multiplier += Math.random() * 0.3;
-        multiplierEl.textContent = multiplier.toFixed(2) + "x";
+        const elapsed = (Date.now() - startTime) / 1000;
+        const value = getRandomMultiplier();
+        multiplierEl.textContent = value + "x";
 
-        if (multiplier >= 10) {
+        if (elapsed >= 16) {
           clearInterval(interval);
         }
-      }, 100);
+      }, 1000);
     }
   </script></body>
 </html>
