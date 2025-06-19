@@ -1,137 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>جیتو</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #000000, #1a1a1a);
-      color: white;
+    :root {
+      --rad: 10px;
+      --clr-red: #ff4444;
+      --clr-green: #10b981;
+      --clr-blue: #3b82f6;
+      --clr-orange: #f59e0b;
+      --clr-black: #4b5563;
+      --clr-bg: #0e0e0e;
     }
-
-    header {
-      padding: 20px;
-      background-color: #111;
-      text-align: center;
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      background:var(--clr-bg);
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:20px;
     }
-
-    header h1 {
-      font-size: 2.5rem;
-      color: #ffcc00;
-      margin: 0;
+    h1{margin:10px 0 20px;font-size:2rem;text-align:center;}
+    .time-btns,.cat-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+    .btn{
+      padding:14px 24px;
+      border:none;
+      border-radius:var(--rad);
+      font-weight:bold;
+      color:#fff;
+      font-size:1rem;
+      cursor:pointer;
+      transition:transform .2s;
     }
-
-    .buttons {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      padding: 20px;
-    }
-
-    .btn {
-      padding: 15px 25px;
-      font-size: 1.2rem;
-      margin: 10px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: bold;
-      color: white;
-      transition: transform 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-    }
-
-    .red { background: #ff4444; }
-    .blue { background: #3b82f6; }
-    .green { background: #10b981; }
-    .orange { background: #f59e0b; }
-
-    .prediction {
-      background: #222;
-      padding: 20px;
-      border-radius: 15px;
-      margin: 20px;
-      text-align: center;
-    }
-
-    .prediction h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    .numbers {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      color: #00ffd5;
-    }
-
-    .details span {
-      display: inline-block;
-      background: #333;
-      color: #ccc;
-      padding: 8px 12px;
-      border-radius: 8px;
-      margin: 5px;
-      font-weight: bold;
-    }
-
-    .download-section {
-      background: #111;
-      padding: 25px;
-      margin: 20px;
-      border-radius: 15px;
-      text-align: center;
-    }
-
-    .download-section p {
-      margin-bottom: 15px;
-      line-height: 1.5;
-    }
-
-    .download-btn {
-      background: linear-gradient(to right, #00c6ff, #bc00ff);
-      padding: 12px 25px;
-      color: white;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 10px;
-      display: inline-block;
-    }
+    .btn:hover{transform:scale(1.08);}
+    .red{background:var(--clr-red);} .green{background:var(--clr-green);} .blue{background:var(--clr-blue);} .orange{background:var(--clr-orange);} .black{background:var(--clr-black);} 
+    .panel{background:#1f2937;padding:20px;border-radius:var(--rad);width:100%;max-width:420px;margin-top:25px;}
+    .label{font-weight:bold;margin:10px 0;color:#0ff;font-size:1.1rem;text-align:center;}
+    .number-display{font-size:2.2rem;font-weight:bold;text-align:center;margin:10px 0;color:#0ff;}
+    .input-wrap{display:flex;gap:10px;justify-content:center;margin:10px 0;}
+    .input-wrap input{flex:1 1 100px;padding:10px;border-radius:var(--rad);border:none;text-align:center;font-size:1rem;}
+    .predict-btn{background:linear-gradient(90deg,#00c6ff 0%,#7e00ff 100%);margin-top:10px;}
+    .tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:15px;}
+    .tag{padding:6px 12px;border-radius:var(--rad);background:#374151;font-weight:bold;font-size:.9rem;min-width:80px;text-align:center;}
+    a.download-btn{display:inline-block;margin-top:25px;background:linear-gradient(90deg,#00c6ff,#bc00ff);padding:12px 28px;border-radius:var(--rad);color:#fff;font-weight:bold;text-decoration:none;}
   </style>
 </head>
 <body>
+  <h1>🎯 Jeeto Wingo Dashboard</h1>  <!-- Time interval buttons -->  <div class="time-btns">
+    <button class="btn red"    onclick="setMode('Wingo 30 Sec')">Wingo 30 Sec</button>
+    <button class="btn blue"   onclick="setMode('Wingo 1 Min')">Wingo 1 Min</button>
+    <button class="btn green"  onclick="setMode('Wingo 3 Min')">Wingo 3 Min</button>
+    <button class="btn orange" onclick="setMode('Wingo 5 Min')">Wingo 5 Min</button>
+  </div>  <div class="panel">
+    <div class="label" id="selectedMode">Selected: Wingo 30 Sec</div><!-- Manual number input -->
+<div class="input-wrap">
+  <input type="number" id="manualNum" placeholder="Enter 3‑digit" min="0" max="999">
+  <button class="btn blue" style="padding:10px 16px" onclick="applyManual()">Set</button>
+</div>
 
-  <header>
-    <h1>🎯 Fantasy Gems Wingo Hack</h1>
-  </header>
+<!-- Number display -->
+<div class="number-display" id="numberOut">---</div>
 
-  <div class="buttons">
-    <button class="btn red">Wingo 30 Sec</button>
-    <button class="btn blue">Wingo 1 Min</button>
-    <button class="btn green">Wingo 3 Min</button>
-    <button class="btn orange">Wingo 5 Min</button>
-  </div>
+<!-- Category buttons (Big/Small & Colors) -->
+<div class="cat-btns" style="margin-top:10px">
+  <button class="btn green"  onclick="selectSize('Big')">Big</button>
+  <button class="btn red"    onclick="selectSize('Small')">Small</button>
+  <button class="btn black"  onclick="selectColor('Black')">Black</button>
+  <button class="btn red"    onclick="selectColor('Red')">Red</button>
+  <button class="btn green"  onclick="selectColor('Green')">Green</button>
+</div>
 
-  <div class="prediction">
-    <h2>🔥 Prediction</h2>
-    <div class="numbers">3 • 8 • 5</div>
-    <div class="details">
-      <span>Big</span>
-      <span>Green</span>
-      <span>Back</span>
-    </div>
-  </div>
+<!-- New prediction button -->
+<button class="btn predict-btn" onclick="newPrediction()">🔮 New Prediction</button>
 
-  <div class="download-section">
-    <p><strong>Note:</strong> Nechy Diye Gaye Download Button Py Click Karke Fantasy Gems Ko Join Karlo Official Link Se Warna Yeh Hack Kam Nahi Kare Ga Jab Tak Ap Yahi Se Fantasy Gems Join Nahi Karty.</p>
-    <a class="download-btn" href="https://www.92lotto.net/#/register?invitationCode=15387106665" target="_blank">⬇ Download</a>
-  </div>
+<!-- Tags output -->
+<div class="tags">
+  <div class="tag" id="sizeTag">Size</div>
+  <div class="tag" id="colorTag">Color</div>
+</div>
 
-</body>
+  </div>  <!-- Download --><a class="download-btn" href="https://www.92lotto.net/#/register?invitationCode=15387106665" target="_blank">⬇ Join & Download</a>
+
+  <script>
+    let currentMode = 'Wingo 30 Sec';
+    let selectedSize = null;
+    let selectedColor = null;
+
+    function setMode(mode){
+      currentMode = mode;
+      document.getElementById('selectedMode').innerText = 'Selected: '+mode;
+    }
+
+    function applyManual(){
+      const val = document.getElementById('manualNum').value;
+      if(val && val.length<=3){
+        document.getElementById('numberOut').innerText = val.padStart(3,'0');
+      }
+    }
+
+    function selectSize(size){
+      selectedSize = size;
+      document.getElementById('sizeTag').innerText = size;
+    }
+
+    function selectColor(color){
+      selectedColor = color;
+      document.getElementById('colorTag').innerText = color;
+    }
+
+    function newPrediction(){
+      // Generate random if manual not set
+      const num = Math.floor(Math.random()*900)+100;
+      document.getElementById('numberOut').innerText = num;
+      // auto pick if user hasn't selected
+      if(!selectedSize){selectSize(Math.random()>0.5?'Big':'Small');}
+      if(!selectedColor){const colors=['Red','Green','Black'];selectColor(colors[Math.floor(Math.random()*3)]);}
+      // reset manual input
+      document.getElementById('manualNum').value='';
+      selectedSize=null;
+      selectedColor=null;
+    }
+  </script></body>
 </html>
