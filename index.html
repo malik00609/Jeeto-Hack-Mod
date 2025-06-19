@@ -1,10 +1,166 @@
-
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="en">
 <head>
-    <title>Message for Sagar ji</title>
+    <meta charset="UTF-8">
+    <title>Aviator Game Presentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f0f8;
+            color: #222;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        h1, h2 {
+            color: #c0392b;
+            margin-top: 0;
+        }
+        #videoWrapper {
+            position: relative;
+            max-width: 800px;
+            margin: 20px auto;
+            border: 3px solid #444;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+        }
+        video {
+            width: 100%;
+            height: auto;
+        }
+        #controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: #fff;
+            padding: 10px;
+            border-top: 3px solid #444;
+        }
+        button {
+            padding: 8px 14px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #c0392b;
+            color: #fff;
+            transition: opacity 0.2s ease-in-out;
+        }
+        button:hover { opacity: 0.85; }
+        .features {
+            background-color: #fdfdfd;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+        ul { margin-top: 10px; }
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: none;
+            padding: 8px 12px;
+            background: #c0392b;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Sagar ji, paisa ki bagair kuch nahi hota</h1>
+    <h1>Complete Introduction to Aviator Game</h1><p>
+    Aviator is an exciting and dynamic online game that combines chance and decision-making.
+    In this game, a virtual airplane continuously ascends, and the player must choose the right time to "Cash Out" to secure their profit.
+</p>
+
+<h2>Watch the Gameplay Video</h2>
+<div id="videoWrapper">
+    <video id="aviatorVideo">
+        <source src="aviator.mp4" type="video/mp4">
+        Your browser does not support video playback.
+    </video>
+    <div id="controls">
+        <button id="playPause">Play</button>
+        <button id="muteUnmute">Mute</button>
+        <button id="restart">Restart</button>
+        <button id="fullscreen">Full Screen</button>
+        <button id="scrollFeatures">Features ↓</button>
+    </div>
+</div>
+
+<div class="features" id="featuresSection">
+    <h2>Key Features</h2>
+    <ul>
+        <li>Real-time multiplayer experience</li>
+        <li>Simple rules, high rewards</li>
+        <li>Provably Fair system</li>
+        <li>Fast-paced and interactive gameplay</li>
+        <li>Playable on both mobile and desktop</li>
+    </ul>
+</div>
+
+<button id="backToTop" title="Go to Top">↑</button>
+
+<script>
+    const video = document.getElementById('aviatorVideo');
+    const playPauseBtn = document.getElementById('playPause');
+    const muteUnmuteBtn = document.getElementById('muteUnmute');
+    const restartBtn = document.getElementById('restart');
+    const fullscreenBtn = document.getElementById('fullscreen');
+    const scrollFeaturesBtn = document.getElementById('scrollFeatures');
+    const backToTopBtn = document.getElementById('backToTop');
+
+    playPauseBtn.addEventListener('click', () => {
+        if (video.paused) {
+            video.play();
+            playPauseBtn.textContent = 'Pause';
+        } else {
+            video.pause();
+            playPauseBtn.textContent = 'Play';
+        }
+    });
+
+    muteUnmuteBtn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        muteUnmuteBtn.textContent = video.muted ? 'Unmute' : 'Mute';
+    });
+
+    restartBtn.addEventListener('click', () => {
+        video.currentTime = 0;
+        video.play();
+        playPauseBtn.textContent = 'Pause';
+    });
+
+    fullscreenBtn.addEventListener('click', () => {
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        } else if (video.webkitRequestFullscreen) {
+            video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) {
+            video.msRequestFullscreen();
+        }
+    });
+
+    scrollFeaturesBtn.addEventListener('click', () => {
+        document.getElementById('featuresSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', () => {
+        if (document.documentElement.scrollTop > 200) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
 </body>
 </html>
